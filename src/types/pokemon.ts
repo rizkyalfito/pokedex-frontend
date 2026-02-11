@@ -1,8 +1,22 @@
+export interface PokemonType {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+}
+
 export interface Pokemon {
   id: number;
   name: string;
-  imageUrl: string;
-  types: string[];
+  sprites: {
+    front_default: string;
+    back_default: string;
+    front_shiny: string;
+  };
+  types: PokemonType[];
+  height: number;
+  weight: number;
 }
 
 export interface PokemonDetail {
@@ -15,9 +29,14 @@ export interface PokemonDetail {
   };
   height: number;
   weight: number;
-  types: string[];
-  moves: string[];
-  evolutionChain: EvolutionChain[];
+  types: PokemonType[];
+  moves: Array<{
+    move: {
+      name: string;
+      url: string;
+    };
+  }>;
+  evolutionChain: EvolutionChain[] | null;
 }
 
 export interface EvolutionChain {
