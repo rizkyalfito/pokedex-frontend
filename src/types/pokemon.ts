@@ -27,8 +27,12 @@ export interface EvolutionChain {
 }
 
 export interface PokemonListResponse {
-  pokemon: Pokemon[];
-  currentPage: number;
-  totalPages: number;
-  totalPokemon: number;
+  success: boolean;
+  data: Pokemon[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    hasMore: boolean;
+  };
 }

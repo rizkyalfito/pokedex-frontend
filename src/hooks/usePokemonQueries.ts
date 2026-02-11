@@ -10,13 +10,13 @@ export function usePokemonList(searchQuery: string) {
       return response.data as PokemonListResponse;
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.currentPage < lastPage.totalPages) {
-        return lastPage.currentPage + 1;
+      if (lastPage.pagination.hasMore) {
+        return lastPage.pagination.page + 1;
       }
       return undefined;
     },
     initialPageParam: 1,
-    staleTime: 5 * 60 * 1000, 
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -28,6 +28,6 @@ export function usePokemonDetail(id: string) {
       return response.data as PokemonDetail;
     },
     enabled: !!id,
-    staleTime: 10 * 60 * 1000, 
+    staleTime: 10 * 60 * 1000,
   });
 }
