@@ -17,6 +17,8 @@ export function usePokemonList(searchQuery: string) {
     },
     initialPageParam: 1,
     staleTime: 5 * 60 * 1000,
+
+    placeholderData: (previousData) => previousData,
   });
 }
 

@@ -4,7 +4,7 @@ import { PokemonList } from '@/components/pokemon/pokemonList';
 export default function Home() {
   return (
     <main className="min-h-screen pokeball-bg">
-      <div className="container mx-auto px-8 md:px-16 lg:px-32 xl:px-48 py-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-16 lg:px-32 xl:px-48 py-8 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-5xl md:text-6xl font-bold bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-3">

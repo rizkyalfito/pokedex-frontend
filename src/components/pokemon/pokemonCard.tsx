@@ -3,8 +3,6 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import type { Pokemon } from '@/types/pokemon';
 
 interface PokemonCardProps {
@@ -13,87 +11,86 @@ interface PokemonCardProps {
 }
 
 const typeColors: Record<string, string> = {
-  normal: 'bg-gray-400',
-  fire: 'bg-red-500',
-  water: 'bg-blue-500',
-  electric: 'bg-yellow-400',
-  grass: 'bg-green-500',
-  ice: 'bg-cyan-400',
-  fighting: 'bg-orange-700',
-  poison: 'bg-purple-500',
-  ground: 'bg-yellow-700',
-  flying: 'bg-indigo-400',
-  psychic: 'bg-pink-500',
-  bug: 'bg-lime-500',
-  rock: 'bg-yellow-800',
-  ghost: 'bg-purple-700',
-  dragon: 'bg-indigo-700',
-  dark: 'bg-gray-800',
-  steel: 'bg-gray-500',
-  fairy: 'bg-pink-300',
+  normal: 'from-gray-400 to-gray-500',
+  fire: 'from-orange-500 to-red-600',
+  water: 'from-blue-400 to-blue-600',
+  electric: 'from-yellow-400 to-yellow-500',
+  grass: 'from-green-400 to-green-600',
+  ice: 'from-cyan-400 to-blue-400',
+  fighting: 'from-orange-700 to-red-700',
+  poison: 'from-purple-500 to-fuchsia-600',
+  ground: 'from-yellow-600 to-amber-700',
+  flying: 'from-indigo-400 to-sky-400',
+  psychic: 'from-pink-500 to-rose-500',
+  bug: 'from-lime-500 to-green-500',
+  rock: 'from-yellow-800 to-stone-700',
+  ghost: 'from-purple-700 to-indigo-800',
+  dragon: 'from-indigo-700 to-purple-700',
+  dark: 'from-gray-700 to-gray-900',
+  steel: 'from-gray-400 to-gray-600',
+  fairy: 'from-pink-300 to-pink-500',
 };
 
 export function PokemonCard({ pokemon, priority = false }: PokemonCardProps) {
   return (
     <Link href={`/pokemon/${pokemon.name}`}>
-      <Card className="group relative overflow-hidden bg-slate-800/50 backdrop-blur-sm border-2 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-[1.02] cursor-pointer hover:shadow-xl hover:shadow-blue-500/20">
-        
-        {/* Glowing effect on hover */}
-        <div className="absolute inset-0 bg-linear-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
-        
-        {/* Pokemon Image Section - REDUCED HEIGHT */}
-        <div className="relative h-48 bg-linear-to-br from-slate-700/30 to-slate-800/30 flex items-center justify-center p-3">
-          {/* Decorative circle background */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 h-32 rounded-full bg-linear-to-br from-slate-600/30 to-slate-700/30 blur-2xl" />
-          </div>
-          
+      <div className="group relative overflow-hidden rounded-3xl border border-blue-400/20 bg-slate-900/80 backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-blue-500/20 cursor-pointer">
+
+        {/* Top Image Section */}
+        <div className="relative flex items-center justify-center pt-6 pb-4 sm:pt-10 sm:pb-6">
+
+          {/* Big background circle */}
+          <div className="absolute w-56 h-56 rounded-full bg-linear-to-br from-slate-600/40 to-slate-800/40 blur-2xl" />
+
           {/* Pokemon Image */}
-          <div className="relative z-10 group-hover:scale-110 transition-transform duration-300">
+          <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
             <Image
               src={pokemon.sprites.front_default}
               alt={pokemon.name}
-              width={130}
-              height={130}
-              className="object-contain drop-shadow-2xl"
+              width={220}
+              height={220}
+              className="object-contain w-32 h-24 sm:w-40 sm:h-40 drop-shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
               priority={priority}
               loading={priority ? undefined : 'lazy'}
             />
           </div>
         </div>
 
-        {/* Info Section - COMPACT */}
-        <div className="relative px-4 py-3 bg-slate-900/90 backdrop-blur-sm">
-          {/* Pokemon Number */}
-          <div className="text-slate-400 text-xs font-bold mb-1">
-            #{String(pokemon.id).padStart(4, '0')}
+        {/* Bottom Info Section */}
+        <div className="text-center pb-8 px-6">
+
+          {/* ID */}
+          <div className="text-blue-300 text-lg font-medium tracking-widest mb-1">
+            {String(pokemon.id).padStart(4, '0')}
           </div>
 
-          {/* Pokemon Name */}
-          <h3 className="font-bold text-lg capitalize mb-3 text-white group-hover:text-blue-400 transition-colors truncate">
+          {/* Name */}
+          <h3 className="text-2xl font-bold text-white capitalize leading-tight mb-5">
             {pokemon.name}
           </h3>
-          
-          {/* Types - BIGGER AND MORE VISIBLE */}
-          <div className="flex gap-2 flex-wrap">
+
+          {/* Types */}
+          <div className="flex justify-center gap-3 flex-nowrap">
             {pokemon.types?.map((typeObj: any, index: number) => {
               const typeName = typeObj?.type?.name || typeObj?.name;
               if (!typeName) return null;
-              
+
               const typeKey = typeName.toLowerCase();
-              
+
               return (
-                <Badge
+                <div
                   key={index}
-                  className={`${typeColors[typeKey] || 'bg-gray-400'} text-white capitalize text-sm font-bold px-4 py-1.5 shadow-lg border border-white/20 rounded-full`}
+                  className={`px-3 py-1 sm:px-5 sm:py-2 rounded-full text-white text-xs sm:text-sm font-semibold bg-linear-to-r ${
+                    typeColors[typeKey] || 'from-gray-400 to-gray-500'
+                  } shadow-lg shadow-black/40`}
                 >
                   {typeName}
-                </Badge>
+                </div>
               );
             })}
           </div>
         </div>
-      </Card>
+      </div>
     </Link>
   );
 }

@@ -55,7 +55,7 @@ export function PokemonList() {
 
   const allPokemon = data?.pages.flatMap((page) => page.data) ?? [];
   
-  if (allPokemon.length === 0) {
+  if (!isLoading && !isFetchingNextPage && allPokemon.length === 0) {
     return (
       <div className="text-center py-16">
         <div className="text-6xl mb-4">🔍</div>
