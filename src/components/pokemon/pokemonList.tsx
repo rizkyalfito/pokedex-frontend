@@ -47,8 +47,8 @@ export function PokemonList() {
     return (
       <div className="text-center py-12">
         <div className="text-6xl mb-4">😢</div>
-        <p className="text-red-500 text-xl font-bold">Failed to load Pokémon data</p>
-        <p className="text-gray-500 mt-2">Please try again later</p>
+        <p className="text-red-400 text-xl font-bold">Failed to load Pokémon data</p>
+        <p className="text-slate-400 mt-2">Please try again later</p>
       </div>
     );
   }
@@ -59,8 +59,8 @@ export function PokemonList() {
     return (
       <div className="text-center py-16">
         <div className="text-6xl mb-4">🔍</div>
-        <p className="text-gray-700 text-xl font-bold">No Pokémon found</p>
-        <p className="text-gray-400 mt-2">Try a different search term</p>
+        <p className="text-slate-200 text-xl font-bold">No Pokémon found</p>
+        <p className="text-slate-400 mt-2">Try a different search term</p>
       </div>
     );
   }
@@ -68,11 +68,11 @@ export function PokemonList() {
   return (
     <div className="space-y-8">
       {/* Results count */}
-      <div className="text-sm text-gray-500 font-medium">
-        Showing {allPokemon.length} Pokémon
-      </div>
+        <div className="text-sm text-slate-400 font-medium">
+          Showing {allPokemon.length} of {data?.pages[0]?.pagination.total || 0} Pokémon
+        </div>
 
-      {/* Pokemon Grid - ALWAYS 2 columns as per requirements */}
+      {/* Pokemon Grid - 2 columns as per requirements */}
       <div className="grid grid-cols-2 gap-4 md:gap-6">
         {allPokemon.map((pokemon, index) => (
           <PokemonCard 
@@ -97,10 +97,10 @@ export function PokemonList() {
 
       {/* End of list */}
       {!hasNextPage && allPokemon.length > 0 && (
-        <div className="text-center py-12 border-t border-gray-200">
+        <div className="text-center py-12 border-t border-slate-700/50">
           <div className="text-4xl mb-3">🎉</div>
-          <p className="text-gray-500 font-medium">You&apos;ve caught them all!</p>
-          <p className="text-gray-400 text-sm mt-1">End of Pokédex</p>
+          <p className="text-slate-300 font-medium">You&apos;ve caught them all!</p>
+          <p className="text-slate-500 text-sm mt-1">End of Pokédex</p>
         </div>
       )}
     </div>

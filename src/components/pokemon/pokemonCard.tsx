@@ -1,10 +1,10 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Pokemon } from '@/types/pokemon';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import type { Pokemon } from '@/types/pokemon';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -33,79 +33,65 @@ const typeColors: Record<string, string> = {
 };
 
 export function PokemonCard({ pokemon, priority = false }: PokemonCardProps) {
-  const imageUrl = pokemon.sprites?.front_default || '/placeholder.png';
-  
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
-      <Card className="group relative overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer border-2 hover:border-gray-300">
-        {/* Pokemon Number Badge */}
-        <div className="absolute top-3 right-3 z-10">
-          <div className="bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
-            #{String(pokemon.id).padStart(3, '0')}
-          </div>
-        </div>
-
-        {/* Image Section with gradient background */}
-        <div className="relative aspect-square bg-linear-to-br from-gray-50 via-white to-gray-100 flex items-center justify-center overflow-hidden">
-          {/* Decorative circles */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-gray-100 rounded-full opacity-50"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gray-100 rounded-full opacity-50"></div>
+      <Card className="group relative overflow-hidden bg-slate-800/50 backdrop-blur-sm border-2 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-[1.02] cursor-pointer hover:shadow-xl hover:shadow-blue-500/20">
+        
+        {/* Glowing effect on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
+        
+        {/* Pokemon Image Section - REDUCED HEIGHT */}
+        <div className="relative h-48 bg-gradient-to-br from-slate-700/30 to-slate-800/30 flex items-center justify-center p-3">
+          {/* Decorative circle background */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-slate-600/30 to-slate-700/30 blur-2xl" />
           </div>
           
+          {/* Pokemon Image */}
           <div className="relative z-10 group-hover:scale-110 transition-transform duration-300">
             <Image
-              src={imageUrl}
+              src={pokemon.sprites.front_default}
               alt={pokemon.name}
-              width={180}
-              height={180}
-              className="object-contain drop-shadow-lg"
+              width={130}
+              height={130}
+              className="object-contain drop-shadow-2xl"
               priority={priority}
               loading={priority ? undefined : 'lazy'}
             />
           </div>
         </div>
 
-        {/* Info Section */}
-        <div className="p-4 bg-white">
-          <h3 className="font-bold text-xl capitalize mb-3 text-gray-800 truncate group-hover:text-blue-600 transition-colors">
+        {/* Info Section - COMPACT */}
+        <div className="relative px-4 py-3 bg-slate-900/90 backdrop-blur-sm">
+          {/* Pokemon Number */}
+          <div className="text-slate-400 text-xs font-bold mb-1">
+            #{String(pokemon.id).padStart(4, '0')}
+          </div>
+
+          {/* Pokemon Name */}
+          <h3 className="font-bold text-lg capitalize mb-3 text-white group-hover:text-blue-400 transition-colors truncate">
             {pokemon.name}
           </h3>
           
-          {/* Types */}
+          {/* Types - BIGGER AND MORE VISIBLE */}
           <div className="flex gap-2 flex-wrap">
-            {pokemon.types
-              ?.filter((typeObj) => typeObj?.type?.name)
-              .map((typeObj) => {
-                const typeName = typeObj.type.name;
-                const typeKey = typeName.toLowerCase();
-                
-                return (
-                  <Badge
-                    key={typeName}
-                    className={`${typeColors[typeKey] || 'bg-gray-400'} text-white capitalize text-xs font-semibold px-3 py-1 shadow-sm`}
-                  >
-                    {typeName}
-                  </Badge>
-                );
-              })}
-          </div>
-
-          {/* Stats Preview */}
-          <div className="mt-3 pt-3 border-t border-gray-100 flex justify-between text-xs text-gray-600">
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Height:</span>
-              <span>{(pokemon.height / 10).toFixed(1)}m</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="font-semibold">Weight:</span>
-              <span>{(pokemon.weight / 10).toFixed(1)}kg</span>
-            </div>
+            {pokemon.types?.map((typeObj: any, index: number) => {
+              const typeName = typeObj?.type?.name || typeObj?.name;
+              if (!typeName) return null;
+              
+              const typeKey = typeName.toLowerCase();
+              
+              return (
+                <Badge
+                  key={index}
+                  className={`${typeColors[typeKey] || 'bg-gray-400'} text-white capitalize text-sm font-bold px-4 py-1.5 shadow-lg border border-white/20 rounded-full`}
+                >
+                  {typeName}
+                </Badge>
+              );
+            })}
           </div>
         </div>
-
-        {/* Hover effect overlay */}
-        <div className="absolute inset-0 bg-linear-to-t from-blue-500/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
       </Card>
     </Link>
   );
