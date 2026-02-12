@@ -94,15 +94,6 @@ export function PokemonList() {
 
       {/* Infinite scroll observer */}
       <div ref={observerRef} className="h-10" />
-
-      {/* End of list */}
-      {!hasNextPage && allPokemon.length > 0 && (
-        <div className="text-center py-12 border-t border-slate-700/50">
-          <div className="text-4xl mb-3">🎉</div>
-          <p className="text-slate-300 font-medium">You&apos;ve caught them all!</p>
-          <p className="text-slate-500 text-sm mt-1">End of Pokédex</p>
-        </div>
-      )}
     </div>
   );
 }

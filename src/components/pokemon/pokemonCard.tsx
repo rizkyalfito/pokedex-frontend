@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import Link from 'next/link';
@@ -34,17 +35,17 @@ const typeColors: Record<string, string> = {
 
 export function PokemonCard({ pokemon, priority = false }: PokemonCardProps) {
   return (
-    <Link href={`/pokemon/${pokemon.id}`}>
+    <Link href={`/pokemon/${pokemon.name}`}>
       <Card className="group relative overflow-hidden bg-slate-800/50 backdrop-blur-sm border-2 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-[1.02] cursor-pointer hover:shadow-xl hover:shadow-blue-500/20">
         
         {/* Glowing effect on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
         
         {/* Pokemon Image Section - REDUCED HEIGHT */}
-        <div className="relative h-48 bg-gradient-to-br from-slate-700/30 to-slate-800/30 flex items-center justify-center p-3">
+        <div className="relative h-48 bg-linear-to-br from-slate-700/30 to-slate-800/30 flex items-center justify-center p-3">
           {/* Decorative circle background */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-slate-600/30 to-slate-700/30 blur-2xl" />
+            <div className="w-32 h-32 rounded-full bg-linear-to-br from-slate-600/30 to-slate-700/30 blur-2xl" />
           </div>
           
           {/* Pokemon Image */}

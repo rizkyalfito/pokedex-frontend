@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface PokemonType {
   slot: number;
   type: {
@@ -14,7 +15,7 @@ export interface Pokemon {
     back_default: string;
     front_shiny: string;
   };
-  types: PokemonType[];
+  types: any[];
   height: number;
   weight: number;
 }
@@ -29,20 +30,27 @@ export interface PokemonDetail {
   };
   height: number;
   weight: number;
-  types: PokemonType[];
+  types: Array<{
+    type: {
+      name: string;
+      url: string;
+    };
+  }>;
   moves: Array<{
     move: {
       name: string;
       url: string;
     };
   }>;
-  evolutionChain: EvolutionChain[] | null;
+  evolutionChain: {
+    chain: any;
+  } | null;
 }
 
 export interface EvolutionChain {
   name: string;
-  imageUrl: string;
   id: number;
+  imageUrl?: string;
 }
 
 export interface PokemonListResponse {

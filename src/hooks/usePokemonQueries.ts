@@ -20,14 +20,14 @@ export function usePokemonList(searchQuery: string) {
   });
 }
 
-export function usePokemonDetail(id: string) {
+export function usePokemonDetail(nameOrId: string) {
   return useQuery({
-    queryKey: ['pokemon', 'detail', id],
+    queryKey: ['pokemon', 'detail', nameOrId],
     queryFn: async () => {
-      const response = await pokemonApi.getDetail(id);
-      return response.data as PokemonDetail;
+      const response = await pokemonApi.getDetail(nameOrId);
+      return response.data.data as PokemonDetail;
     },
-    enabled: !!id,
+    enabled: !!nameOrId,
     staleTime: 10 * 60 * 1000,
   });
 }
